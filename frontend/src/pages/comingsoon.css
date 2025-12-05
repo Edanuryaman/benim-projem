@@ -1,0 +1,16 @@
+.coming-soon {
+    height: 100vh; /* full ekran */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.coming-soon h1 {
+    color: #6b5f82;
+}
+
+.coming-soon p {
+    color: #8e82a4;
+}

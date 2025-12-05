@@ -1,0 +1,53 @@
+@keyframes softPulse {
+    0% {
+        border-image-source: linear-gradient(45deg, #b7a0d6, #8fd3c0, #f6c98c, #b7a0d6);
+    }
+    50% {
+        border-image-source: linear-gradient(45deg, #8fd3c0, #f6c98c, #b7a0d6, #8fd3c0);
+    }
+    100% {
+        border-image-source: linear-gradient(45deg, #b7a0d6, #8fd3c0, #f6c98c, #b7a0d6);
+    }
+}
+.card {
+    width: 250px;
+    height: 450px;
+    border-radius: 4px;
+    padding: 20px;
+    position: relative;
+
+    border: 4px solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(45deg, #b7a0d6, #8fd3c0, #f6c98c, #b7a0d6);
+
+    animation: softPulse 2s infinite alternate;
+}
+
+.card .card-img {
+    width: 100%;
+    height: auto;
+}
+
+.card .card-desc {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+p {
+    align-self: flex-start;
+}
+
+.card .card-desc button {
+    width: 100px;
+    padding: 8px;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    position: absolute; /* sabitlemek için */
+    bottom: 10px;
+    left: 50%;         /* yatayda ortalamak için */
+    transform: translateX(-50%);
+}
