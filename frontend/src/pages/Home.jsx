@@ -30,6 +30,7 @@ function Home() {
                     {employees.map((emp) => (
                         <Card
                             key={emp.id}
+                            id={emp.id}
                             img={emp.profilePhoto || "/img/default.jpg"}
                             title={`${emp.firstName} ${emp.lastName}`}
                             departmentName={emp.department?.name}
