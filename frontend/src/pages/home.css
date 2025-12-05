@@ -5,3 +5,12 @@
     align-items: center;
     gap: 15px;
 }
+.team-title {
+    text-align: center;          /* Ortala */
+    font-size: 1.8rem;           /* Normalden biraz küçük */
+    font-weight: 600;            /* Hafif kalın, modern */
+    letter-spacing: 2px;         /* Harfler arası boşluk havalı görünür */
+    color: #4a4a4a;              /* Hafif koyu gri */
+    text-transform: uppercase;   /* Büyük harf, modern görünüm */
+    margin: 20px 0;              /* Üst-alt boşluk */
+}

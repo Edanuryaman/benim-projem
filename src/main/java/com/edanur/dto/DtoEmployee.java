@@ -19,7 +19,10 @@ public class DtoEmployee {
 
     private String lastName;
 
+    private String profilePhoto;
+
     private DtoDepartment department;
 
     private DtoCommunication communication;
+
 }

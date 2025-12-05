@@ -25,6 +25,8 @@ public class Employee {
 
     private String cv_resume;
 
+    private String profilePhoto;
+
     @ManyToOne
     private Department department;
 

@@ -1,21 +1,47 @@
-import './home.css'
-import Card from "../components/Card.jsx";
+import { useEffect, useState } from "react";
+import Card from "../components/Card.jsx";// Card komponentini doğru import ettiğinden emin ol
+import "./home.css";
 
 function Home() {
+    const [employees, setEmployees] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetch("http://localhost:8080/rest/api/employee/list")
+            .then(res => res.json())
+            .then(data => {
+                setEmployees(data);
+                setLoading(false);
+            })
+            .catch(err => {
+                console.error("API Error:", err);
+                setLoading(false);
+            });
+    }, []);
+
     return (
         <>
-            <div className="cards">
-                <Card img="/img/ankara.jpg" title="ANKARA" desc="Ankara, Türkiye'nin başkentidir. Benim memleketim ve yaşadığım şehirdir.
-                Gezilecek yerleri arasında Anıtkabir, Atakule, Ankara Kalesi gibi yapılar önde gelir." color="#980077FF"/>
-                <Card img="/img/istanbul.jpg" title="İSTANBUL" desc="İstanbul, medeniyetlerin beşiği olan harika bir şehirdir. Uzun yıllar boyunca Osmanlı’nın kalbi olmuştur.
-                Gezilecek yerleri arasında en sevdiklerim ise İstanbul Boğazı, Dolmabahçe Sarayı ve Ayasofya Camii’dir." color="#0463A5EF"/>
-                <Card img="/img/konya.jpg" title="KONYA" desc="Konya, eğitim hayatım da dahil olmak üzere 14 yıl vakit geçirdiğim bir şehirdir. Sakinliği ve huzuru ile öne çıkar.
-                Gezilecek yerler arasında mutlaka Mevlana Türbesi ve Kelebekler Vadisi bulunmaktadır." color="#B16004FF"/>
-                <Card img="/img/rize.jpg" title="RİZE" desc="Rize, doğasına hayran kaldığım çok kıymetli şehirlerden biridir. Yeşillik ve doğa yürüyüşlerinde hoşlandığım için
-                ilgimi çeken bir il olmuştur. Ancak henüz hiç gitmedim." color="#116E02FF"/>
-            </div>
+            <h1 className="team-title">GABİM ÇALIŞMA ARKADAŞLARIMIZ</h1>
+
+            {loading ? (
+                <p>Yükleniyor...</p>
+            ) : (
+                <div className="cards">
+                    {employees.map((emp) => (
+                        <Card
+                            key={emp.id}
+                            img={emp.profilePhoto || "/img/default.jpg"}
+                            title={`${emp.firstName} ${emp.lastName}`}
+                            departmentName={emp.department?.name}
+                            phone={emp.communication?.phone}
+                            email={emp.communication?.email}
+                            color="#980077FF"
+                        />
+                    ))}
+                </div>
+            )}
         </>
-    )
+    );
 }
 
-export default Home
+export default Home;
