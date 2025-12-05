@@ -4,6 +4,7 @@ import com.edanur.dto.DtoCommunication;
 import com.edanur.dto.DtoDepartment;
 import com.edanur.dto.DtoEmployee;
 import com.edanur.entity.Communication;
+import com.edanur.entity.Department;
 import com.edanur.entity.Employee;
 import com.edanur.repository.EmployeeRepository;
 import com.edanur.services.IEmployeeService;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeeServiceImpl implements IEmployeeService {
@@ -38,5 +40,32 @@ public class EmployeeServiceImpl implements IEmployeeService {
             dtoEmployeeList.add(dtoEmployee);
         }
         return dtoEmployeeList;
+    }
+
+    @Override
+    public DtoEmployee getEmployeeById(long id) {
+        Optional<Employee> optional = employeeRepository.findById(id);
+        if (optional.isEmpty()) {
+            return null;
+        }
+        Employee employee = optional.get();
+
+        DtoEmployee dtoEmployee = new DtoEmployee();
+        DtoCommunication dtoCommunication = new DtoCommunication();
+        DtoDepartment dtoDepartment = new DtoDepartment();
+
+        BeanUtils.copyProperties(employee, dtoEmployee);
+
+        if (employee.getCommunication() != null) {
+            BeanUtils.copyProperties(employee.getCommunication(), dtoCommunication);
+            dtoEmployee.setCommunication(dtoCommunication);
+        }
+
+        if (employee.getDepartment() != null) {
+            BeanUtils.copyProperties(employee.getDepartment(), dtoDepartment);
+            dtoEmployee.setDepartment(dtoDepartment);
+        }
+
+        return dtoEmployee;
     }
 }

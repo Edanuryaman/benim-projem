@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface IEmployeeController {
     public List<DtoEmployee> getEmployeeList();
+    public DtoEmployee getEmployeeById(long id);
 }
