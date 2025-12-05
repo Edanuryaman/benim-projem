@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import "./employeeDetail.css";
 
 const EmployeeDetail = () => {
     const { id } = useParams();
@@ -19,22 +20,47 @@ const EmployeeDetail = () => {
             });
     }, [id]);
 
-    if (loading) return <p>Yükleniyor...</p>;
-    if (!employee) return <p>Kayıt bulunamadı</p>;
+    if (loading) return <p className="loading">Yükleniyor...</p>;
+    if (!employee) return <p className="not-found">Kayıt bulunamadı</p>;
 
     return (
-        <div className="detail-page">
-            <h1>{employee.firstName} {employee.lastName}</h1>
+        <div className="detail-container">
+            <div className="detail-card">
 
-            <p><strong>Departman:</strong> {employee.department?.name}</p>
-            <p><strong>Telefon:</strong> {employee.communication?.phone}</p>
-            <p><strong>Email:</strong> {employee.communication?.email}</p>
+                {/* PROFIL FOTO */}
+                <img
+                    src={employee.profilePhoto}
+                    alt="Profil"
+                    className="detail-photo"
+                />
 
-            <img
-                src={employee.profilePhoto}
-                alt="profil"
-                style={{ width: "150px", borderRadius: "10px", marginTop: "20px" }}
-            />
+                {/* İSİM */}
+                <h1 className="detail-name">
+                    {employee.firstName} {employee.lastName}
+                </h1>
+
+                {/* DEPARTMAN */}
+                <p className="detail-department">
+                    📌 {employee.department?.name}
+                </p>
+
+                {/* ÖZGEÇMİŞ */}
+                <div className="detail-section">
+                    <h2>Özgeçmiş</h2>
+                    <p className="detail-cv">{employee.cv_resume}</p>
+                </div>
+
+                {/* İLETİŞİM BİLGİLERİ */}
+                <div className="detail-section">
+                    <h2>İletişim Bilgileri</h2>
+                    <div className="contact-info-detail">
+                        <p><strong>📞 Telefon:</strong> {employee.communication?.phone}</p>
+                        <p><strong>📧 Email:</strong> {employee.communication?.email}</p>
+                        <p><strong>📍 Adres:</strong> {employee.communication?.address}</p>
+                    </div>
+                </div>
+
+            </div>
         </div>
     );
 };

@@ -21,6 +21,8 @@ public class DtoEmployee {
 
     private String profilePhoto;
 
+    private String cv_resume;
+
     private DtoDepartment department;
 
     private DtoCommunication communication;
