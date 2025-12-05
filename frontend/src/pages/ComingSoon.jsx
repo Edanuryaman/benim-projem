@@ -20,37 +20,22 @@ const ComingSoon = () => {
 
     return (
         <div className="coming-soon">
-            <h1>Employee List</h1>
+            <h1>Employee List 💼</h1>
 
             {loading ? (
                 <p>Yükleniyor...</p>
             ) : (
-                <table className="employee-table">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Ad</th>
-                        <th>Soyad</th>
-                        <th>Departman</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+                <div className="employee-cards">
                     {employees.map((emp) => (
-                        <tr key={emp.id}>
-                            <td>{emp.id}</td>
-                            <td>{emp.firstName}</td>
-                            <td>{emp.lastName}</td>
-                            <td>{emp.department?.name}</td>
-                        </tr>
+                        <div className="employee-card" key={emp.id}>
+                            <h2>{emp.firstName} {emp.lastName}</h2>
+                            <p><strong>Departman:</strong> {emp.department?.name}</p>
+                        </div>
                     ))}
-                    </tbody>
-                </table>
+                </div>
             )}
 
             <hr />
-
-            <h2>Sayfa Hazırlanıyor 💫</h2>
-            <p>Bu bölüm henüz aktif değil, yakında burada olacak 💜</p>
         </div>
     );
 };

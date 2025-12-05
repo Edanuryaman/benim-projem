@@ -11,24 +11,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "employee")
-public class Employee {
+@Table(name = "communication")
+public class Communication {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String firstName;
-
-    private String lastName;
-
-    private String username;
-
-    private String cv_resume;
-
-    @ManyToOne
-    private Department department;
-
-    @OneToOne
-    private Communication communication;
-
+    private String email;
+    private String phone;
+    private String address;
 }

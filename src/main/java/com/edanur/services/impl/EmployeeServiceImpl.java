@@ -1,7 +1,9 @@
 package com.edanur.services.impl;
 
+import com.edanur.dto.DtoCommunication;
 import com.edanur.dto.DtoDepartment;
 import com.edanur.dto.DtoEmployee;
+import com.edanur.entity.Communication;
 import com.edanur.entity.Employee;
 import com.edanur.repository.EmployeeRepository;
 import com.edanur.services.IEmployeeService;
@@ -27,8 +29,12 @@ public class EmployeeServiceImpl implements IEmployeeService {
         }
         for (Employee employee : employeeList) {
             DtoEmployee dtoEmployee = new DtoEmployee();
+            DtoCommunication dtoCommunication = new DtoCommunication();
             BeanUtils.copyProperties(employee, dtoEmployee);
+            Communication communication = employee.getCommunication();
+            BeanUtils.copyProperties(communication, dtoCommunication);
             dtoEmployee.setDepartment(new DtoDepartment(employee.getDepartment().getId(), employee.getDepartment().getName()));
+            dtoEmployee.setCommunication(dtoCommunication);
             dtoEmployeeList.add(dtoEmployee);
         }
         return dtoEmployeeList;

@@ -20,4 +20,6 @@ public class DtoEmployee {
     private String lastName;
 
     private DtoDepartment department;
+
+    private DtoCommunication communication;
 }
