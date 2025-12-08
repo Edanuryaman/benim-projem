@@ -6,10 +6,9 @@ import com.edanur.dto.DtoDepartmentIU;
 import com.edanur.services.IDepartmentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/rest/api/department")
@@ -21,5 +20,11 @@ public class DepartmentControllerImpl implements IDepartmentController {
     @Override
     public DtoDepartment saveDepartment(@RequestBody @Valid DtoDepartmentIU dtoDepartmentIU) {
         return departmentService.saveDepartment(dtoDepartmentIU);
+    }
+
+    @GetMapping(path = "/list")
+    @Override
+    public List<DtoDepartment> getAllDepartments() {
+        return departmentService.getAllDepartments();
     }
 }

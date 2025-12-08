@@ -9,6 +9,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class DepartmentServiceImpl implements IDepartmentService {
 
@@ -23,5 +26,20 @@ public class DepartmentServiceImpl implements IDepartmentService {
         Department dbDepartment = departmentRepository.save(department);
         BeanUtils.copyProperties(dbDepartment, dtoDepartment);
         return dtoDepartment;
+    }
+
+    @Override
+    public List<DtoDepartment> getAllDepartments() {
+        List<Department> departmentList = departmentRepository.findAll();
+        List<DtoDepartment> dtoDepartmentList = new ArrayList<>();
+        if (departmentList.isEmpty()) {
+            return null;
+        }
+        for (Department department : departmentList) {
+            DtoDepartment dtoDepartment = new DtoDepartment();
+            BeanUtils.copyProperties(department, dtoDepartment);
+            dtoDepartmentList.add(dtoDepartment);
+        }
+        return dtoDepartmentList;
     }
 }
