@@ -1,6 +1,5 @@
-package com.edanur.entity;
+package com.edanur.dto;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,30 +12,20 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "employee")
-public class Employee {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
+public class DtoEmployeeIU {
     private String firstName;
 
     private String lastName;
 
-    private String username;
+    private String profilePhoto;
 
     private String cv_resume;
-
-    private String profilePhoto;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date dateOfBirth;
 
-    @ManyToOne
-    private Department department;
+    private Long departmentId;
 
-    @OneToOne
-    private Communication communication;
-
+    private Long communicationId;
 }

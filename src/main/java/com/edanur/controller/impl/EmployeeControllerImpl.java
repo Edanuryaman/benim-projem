@@ -2,12 +2,10 @@ package com.edanur.controller.impl;
 
 import com.edanur.controller.IEmployeeController;
 import com.edanur.dto.DtoEmployee;
+import com.edanur.dto.DtoEmployeeIU;
 import com.edanur.services.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,5 +25,11 @@ public class EmployeeControllerImpl implements IEmployeeController {
     @Override
     public DtoEmployee getEmployeeById(@PathVariable(name = "id") long id) {
         return employeeService.getEmployeeById(id);
+    }
+
+    @PostMapping(path = "/save")
+    @Override
+    public DtoEmployee saveEmployee(@RequestBody DtoEmployeeIU dtoEmployeeIU) {
+        return employeeService.saveEmployee(dtoEmployeeIU);
     }
 }

@@ -3,24 +3,32 @@ package com.edanur.services.impl;
 import com.edanur.dto.DtoCommunication;
 import com.edanur.dto.DtoDepartment;
 import com.edanur.dto.DtoEmployee;
+import com.edanur.dto.DtoEmployeeIU;
 import com.edanur.entity.Communication;
 import com.edanur.entity.Department;
 import com.edanur.entity.Employee;
+import com.edanur.repository.CommunicationRepository;
+import com.edanur.repository.DepartmentRepository;
 import com.edanur.repository.EmployeeRepository;
 import com.edanur.services.IEmployeeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.text.Normalizer;
+import java.util.*;
 
 @Service
 public class EmployeeServiceImpl implements IEmployeeService {
 
     @Autowired
     private EmployeeRepository employeeRepository;
+
+    @Autowired
+    private CommunicationRepository communicationRepository;
+
+    @Autowired
+    private DepartmentRepository departmentRepository;
 
     @Override
     public List<DtoEmployee> getAllEmployees() {
@@ -68,4 +76,55 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
         return dtoEmployee;
     }
+
+    @Override
+    public DtoEmployee saveEmployee(DtoEmployeeIU dtoEmployeeIU) {
+        DtoEmployee dtoEmployee = new DtoEmployee();
+        Employee employee = new Employee();
+
+        Department department = departmentRepository
+                .findById(dtoEmployeeIU.getDepartmentId())
+                .orElseThrow(() -> new RuntimeException("Department not found"));
+
+        Communication communication = communicationRepository
+                .findById(dtoEmployeeIU.getCommunicationId())
+                .orElseThrow(() -> new RuntimeException("Communication not found"));
+
+
+        String username = generateUsername(dtoEmployeeIU.getFirstName(), dtoEmployeeIU.getLastName(), dtoEmployeeIU.getDateOfBirth());
+
+        BeanUtils.copyProperties(dtoEmployeeIU, employee);
+        employee.setUsername(username);
+        employee.setDepartment(department);
+        employee.setCommunication(communication);
+
+        Employee dbEmployee = employeeRepository.save(employee);
+        BeanUtils.copyProperties(dbEmployee, dtoEmployee);
+        return dtoEmployee;
+    }
+
+    public String generateUsername(String firstName, String lastName, Date dateOfBirth) {
+        String normalizedFirst = Normalizer.normalize(firstName, Normalizer.Form.NFD)
+                .replaceAll("[^\\p{ASCII}]", "")
+                .toLowerCase()
+                .replace(" ", "_"); // boşluk → _
+
+        String normalizedLast = Normalizer.normalize(lastName, Normalizer.Form.NFD)
+                .replaceAll("[^\\p{ASCII}]", "")
+                .toLowerCase()
+                .replace(" ", "_"); // soyadında da boşluk olabilir
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dateOfBirth);
+
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int year = calendar.get(Calendar.YEAR) % 100;
+
+        String monthStr = String.format("%02d", month);
+        String yearStr = String.format("%02d", year);
+
+        // Format: firstname.lastname.MMYY
+        return normalizedFirst + "." + normalizedLast + "." + monthStr + yearStr;
+    }
+
 }
