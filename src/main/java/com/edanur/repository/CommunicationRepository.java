@@ -1,0 +1,9 @@
+package com.edanur.repository;
+
+import com.edanur.entity.Communication;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface CommunicationRepository extends JpaRepository<Communication,Long>{
+}
