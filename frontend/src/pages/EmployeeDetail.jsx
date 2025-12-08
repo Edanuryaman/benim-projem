@@ -27,30 +27,29 @@ const EmployeeDetail = () => {
         <div className="detail-container">
             <div className="detail-card">
 
-                {/* PROFIL FOTO */}
                 <img
                     src={employee.profilePhoto}
                     alt="Profil"
                     className="detail-photo"
                 />
 
-                {/* İSİM */}
                 <h1 className="detail-name">
                     {employee.firstName} {employee.lastName}
                 </h1>
 
-                {/* DEPARTMAN */}
+                <p className="detail-username" style={{ fontSize: "14px", color: "#555" }}>
+                    @{employee.username}
+                </p>
+
                 <p className="detail-department">
                     📌 {employee.department?.name}
                 </p>
 
-                {/* ÖZGEÇMİŞ */}
                 <div className="detail-section">
                     <h2>Özgeçmiş</h2>
                     <p className="detail-cv">{employee.cv_resume}</p>
                 </div>
 
-                {/* İLETİŞİM BİLGİLERİ */}
                 <div className="detail-section">
                     <h2>İletişim Bilgileri</h2>
                     <div className="contact-info-detail">

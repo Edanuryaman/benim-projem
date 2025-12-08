@@ -23,6 +23,8 @@ public class DtoEmployee {
 
     private String cv_resume;
 
+    private String username;
+
     private DtoDepartment department;
 
     private DtoCommunication communication;

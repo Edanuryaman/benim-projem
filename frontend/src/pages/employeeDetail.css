@@ -29,6 +29,14 @@
     color: #333;
 }
 
+.detail-username {
+    font-size: 14px;
+    color: #555;
+    margin-top: -5px;
+    margin-bottom: 5px;
+}
+
+
 .detail-department {
     font-size: 1.1rem;
     margin-bottom: 25px;

@@ -11,7 +11,7 @@ const DepartmentPage = () => {
         try {
             const res = await axios.get("http://localhost:8080/rest/api/department/list");
 
-            const sorted = res.data.sort((a, b) => Number(a.id) - Number(b.id));
+            const sorted = res.data.sort((a, b) => a.id - b.id);
             setDepartments(sorted);
         } catch (error) {
             console.error("Departmanlar alınamadı:", error);
@@ -45,7 +45,7 @@ const DepartmentPage = () => {
         <div className="department-wrapper">
 
             <div className="department-header">
-                <h2>Departman Yönetimi</h2>
+                <h2>Departman Listesi</h2>
                 <button className="add-btn" onClick={() => setShowModal(true)}>
                     + Yeni Departman
                 </button>
