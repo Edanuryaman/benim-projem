@@ -36,7 +36,6 @@ function Home() {
                             departmentName={emp.department?.name}
                             phone={emp.communication?.phone}
                             email={emp.communication?.email}
-                            color="#980077FF"
                         />
                     ))}
                 </div>

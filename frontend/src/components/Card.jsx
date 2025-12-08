@@ -2,7 +2,7 @@ import React from 'react'
 import './card.css'
 import {useNavigate} from "react-router-dom";
 
-const Card = ({id, img, title, departmentName, color, phone, email}) => {
+const Card = ({id, img, title, departmentName, phone, email}) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
@@ -24,7 +24,7 @@ const Card = ({id, img, title, departmentName, color, phone, email}) => {
                     <p><strong>Email:</strong> {email || "Belirtilmedi"}</p>
                 </div>
 
-                <button style={{backgroundColor: color}} onClick={handleClick}>
+                <button onClick={handleClick}>
                     Daha Fazlası
                 </button>
             </div>
