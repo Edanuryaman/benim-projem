@@ -3,6 +3,7 @@ package com.edanur.services.impl;
 import com.edanur.dto.DtoDepartment;
 import com.edanur.dto.DtoDepartmentIU;
 import com.edanur.entity.Department;
+import com.edanur.mapper.DepartmentMapper;
 import com.edanur.repository.DepartmentRepository;
 import com.edanur.services.IDepartmentService;
 import org.springframework.beans.BeanUtils;
@@ -18,14 +19,14 @@ public class DepartmentServiceImpl implements IDepartmentService {
     @Autowired
     private DepartmentRepository departmentRepository;
 
+    @Autowired
+    private DepartmentMapper departmentMapper;
+
     @Override
     public DtoDepartment saveDepartment(DtoDepartmentIU dtoDepartmentIU) {
-        Department department = new Department();
-        DtoDepartment dtoDepartment = new DtoDepartment();
-        BeanUtils.copyProperties(dtoDepartmentIU, department);
+        Department department = departmentMapper.toEntity(dtoDepartmentIU);
         Department dbDepartment = departmentRepository.save(department);
-        BeanUtils.copyProperties(dbDepartment, dtoDepartment);
-        return dtoDepartment;
+        return departmentMapper.toDto(dbDepartment);
     }
 
     @Override
@@ -36,8 +37,7 @@ public class DepartmentServiceImpl implements IDepartmentService {
             return null;
         }
         for (Department department : departmentList) {
-            DtoDepartment dtoDepartment = new DtoDepartment();
-            BeanUtils.copyProperties(department, dtoDepartment);
+            DtoDepartment dtoDepartment = departmentMapper.toDto(department);
             dtoDepartmentList.add(dtoDepartment);
         }
         return dtoDepartmentList;

@@ -7,6 +7,6 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface CommunicationMapper {
-    Communication toEntity (DtoCommunicationIU dto);
+    Communication toEntity (DtoCommunicationIU dtoCommunicationIU);
     DtoCommunication toDto (Communication communication);
 }
