@@ -80,7 +80,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
     @Override
     @Transactional
-    public DtoEmployee saveEmployee(DtoEmployeeIU dto) {
+    public Boolean saveEmployee(DtoEmployeeIU dto) {
 
         // 1) Department çek
         Department department = departmentRepository
@@ -102,12 +102,9 @@ public class EmployeeServiceImpl implements IEmployeeService {
         employee.setDepartment(department);
         employee.setCommunication(communication);
 
-        Employee dbEmployee = employeeRepository.save(employee);
+        employeeRepository.save(employee);
 
-        // 5) Return DTO
-        DtoEmployee dtoEmployee = new DtoEmployee();
-        BeanUtils.copyProperties(dbEmployee, dtoEmployee);
-        return dtoEmployee;
+        return true;
     }
 
 

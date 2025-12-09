@@ -29,7 +29,7 @@ public class EmployeeControllerImpl implements IEmployeeController {
 
     @PostMapping(path = "/save")
     @Override
-    public DtoEmployee saveEmployee(@RequestBody DtoEmployeeIU dtoEmployeeIU) {
+    public Boolean saveEmployee(@RequestBody DtoEmployeeIU dtoEmployeeIU) {
         return employeeService.saveEmployee(dtoEmployeeIU);
     }
 }

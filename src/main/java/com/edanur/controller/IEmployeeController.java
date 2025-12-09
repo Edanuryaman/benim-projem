@@ -8,5 +8,5 @@ import java.util.List;
 public interface IEmployeeController {
     public List<DtoEmployee> getEmployeeList();
     public DtoEmployee getEmployeeById(long id);
-    public DtoEmployee saveEmployee(DtoEmployeeIU dtoEmployeeIU);
+    public Boolean saveEmployee(DtoEmployeeIU dtoEmployeeIU);
 }

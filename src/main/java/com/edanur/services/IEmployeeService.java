@@ -10,5 +10,5 @@ public interface IEmployeeService {
 
     public DtoEmployee getEmployeeById(long id);
 
-    public DtoEmployee saveEmployee(DtoEmployeeIU dtoEmployeeIU);
+    public Boolean saveEmployee(DtoEmployeeIU dtoEmployeeIU);
 }

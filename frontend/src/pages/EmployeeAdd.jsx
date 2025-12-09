@@ -60,10 +60,19 @@ function EmployeeAdd() {
                     body: JSON.stringify(employeeBody),
                 });
             })
-            .then(res => res.json())
-            .then(() => {
-                alert("Çalışan başarıyla kaydedildi!");
-                window.location.href = "/";
+            .then(async res => {
+                if (!res.ok) {
+                    throw new Error("Sunucu hatası: " + res.status);
+                }
+
+                const result = await res.json(); // Boolean bekleniyor
+
+                if (result === true) {
+                    alert("Çalışan başarıyla kaydedildi!");
+                    window.location.href = "/";
+                } else {
+                    alert("Kayıt sırasında bir hata oluştu. Lütfen tekrar deneyin.");
+                }
             })
             .catch(err => console.error(err));
     };
