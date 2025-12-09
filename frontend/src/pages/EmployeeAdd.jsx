@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import "./employeeAdd.css"
 
 function EmployeeAdd() {
@@ -28,7 +28,7 @@ function EmployeeAdd() {
     }, []);
 
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        setFormData({...formData, [e.target.name]: e.target.value});
     };
 
     const handleSubmit = (e) => {
@@ -44,7 +44,7 @@ function EmployeeAdd() {
 
         fetch("http://localhost:8080/rest/api/communication/save", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {"Content-Type": "application/json"},
             body: JSON.stringify(communicationBody),
         })
             .then(res => res.json())
@@ -56,7 +56,7 @@ function EmployeeAdd() {
 
                 return fetch("http://localhost:8080/rest/api/employee/save", {
                     method: "POST",
-                    headers: { "Content-Type": "application/json" },
+                    headers: {"Content-Type": "application/json"},
                     body: JSON.stringify(employeeBody),
                 });
             })
@@ -76,7 +76,7 @@ function EmployeeAdd() {
                 <div className="form-grid">
                     <div className="field full">
                         <label>Departman</label>
-                        <select name="departmentId" onChange={handleChange}>
+                        <select name="departmentId" onChange={handleChange} required>
                             <option value="">-- Seçin --</option>
                             {departments.map(dep => (
                                 <option key={dep.id} value={dep.id}>{dep.name}</option>
@@ -86,37 +86,37 @@ function EmployeeAdd() {
 
                     <div className="field">
                         <label>Ad</label>
-                        <input name="firstName" onChange={handleChange} />
+                        <input name="firstName" onChange={handleChange} required/>
                     </div>
 
                     <div className="field">
                         <label>Soyad</label>
-                        <input name="lastName" onChange={handleChange} />
+                        <input name="lastName" onChange={handleChange} required/>
                     </div>
 
                     <div className="field">
                         <label>Doğum Tarihi</label>
-                        <input type="date" name="dateOfBirth" onChange={handleChange} />
+                        <input type="date" name="dateOfBirth" onChange={handleChange} required/>
                     </div>
 
                     <div className="field">
                         <label>Profil Fotoğrafı URL</label>
-                        <input name="profilePhoto" onChange={handleChange} />
-                    </div>
-
-                    <div className="field full">
-                        <label>Adres</label>
-                        <input name="address" onChange={handleChange} />
+                        <input name="profilePhoto" onChange={handleChange}/>
                     </div>
 
                     <div className="field">
                         <label>Telefon</label>
-                        <input name="phone" onChange={handleChange} />
+                        <input name="phone" onChange={handleChange} required/>
                     </div>
 
                     <div className="field">
                         <label>E-mail</label>
-                        <input name="email" onChange={handleChange} />
+                        <input name="email" onChange={handleChange} required/>
+                    </div>
+
+                    <div className="field full">
+                        <label>Adres</label>
+                        <input name="address" onChange={handleChange} required/>
                     </div>
 
                     <div className="field full">

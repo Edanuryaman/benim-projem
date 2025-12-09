@@ -87,10 +87,10 @@ public class EmployeeServiceImpl implements IEmployeeService {
                 .findById(dto.getDepartmentId())
                 .orElseThrow(() -> new RuntimeException("Department not found"));
 
-        // 2) Communication oluştur
-        Communication communication = new Communication();
-        BeanUtils.copyProperties(dto.getCommunication(), communication);
-        Communication savedCommunication = communicationRepository.save(communication);
+        Communication communication = communicationRepository
+                .findById(dto.getCommunicationId())
+                .orElseThrow(() -> new RuntimeException("Communication not found"));
+
 
         // 3) Username oluştur
         String username = generateUsername(dto.getFirstName(), dto.getLastName(), dto.getDateOfBirth());
@@ -100,7 +100,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
         BeanUtils.copyProperties(dto, employee);
         employee.setUsername(username);
         employee.setDepartment(department);
-        employee.setCommunication(savedCommunication);
+        employee.setCommunication(communication);
 
         Employee dbEmployee = employeeRepository.save(employee);
 

@@ -34,3 +34,28 @@
     position: absolute;
     right: 0;
 }
+.add-button {
+    padding: 10px 18px;
+    background: linear-gradient(45deg, #6B4F9B, #3FA28B);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.25s ease;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+    text-decoration: none;
+}
+
+/* Hover efekti */
+.add-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.18);
+    filter: brightness(1.12);
+}
+
+/* Tıklama anı */
+.add-button:active {
+    transform: scale(0.97);
+}

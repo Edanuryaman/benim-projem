@@ -26,6 +26,7 @@ public class Employee {
 
     private String username;
 
+    @Column(columnDefinition = "TEXT")
     private String cv_resume;
 
     private String profilePhoto;

@@ -27,5 +27,5 @@ public class DtoEmployeeIU {
 
     private Long departmentId;
 
-    private DtoCommunicationIU communication;
+    private Long communicationId;
 }
