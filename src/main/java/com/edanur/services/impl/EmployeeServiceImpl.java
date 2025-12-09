@@ -7,12 +7,14 @@ import com.edanur.dto.DtoEmployeeIU;
 import com.edanur.entity.Communication;
 import com.edanur.entity.Department;
 import com.edanur.entity.Employee;
+import com.edanur.mapper.CommunicationMapper;
+import com.edanur.mapper.DepartmentMapper;
+import com.edanur.mapper.EmployeeMapper;
 import com.edanur.repository.CommunicationRepository;
 import com.edanur.repository.DepartmentRepository;
 import com.edanur.repository.EmployeeRepository;
 import com.edanur.services.IEmployeeService;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +33,15 @@ public class EmployeeServiceImpl implements IEmployeeService {
     @Autowired
     private DepartmentRepository departmentRepository;
 
+    @Autowired
+    private EmployeeMapper employeeMapper;
+
+    @Autowired
+    private DepartmentMapper departmentMapper;
+
+    @Autowired
+    private CommunicationMapper communicationMapper;
+
     @Override
     public List<DtoEmployee> getAllEmployees() {
         List<Employee> employeeList = employeeRepository.findAll();
@@ -39,11 +50,9 @@ public class EmployeeServiceImpl implements IEmployeeService {
             return null;
         }
         for (Employee employee : employeeList) {
-            DtoEmployee dtoEmployee = new DtoEmployee();
-            DtoCommunication dtoCommunication = new DtoCommunication();
-            BeanUtils.copyProperties(employee, dtoEmployee);
-            Communication communication = employee.getCommunication();
-            BeanUtils.copyProperties(communication, dtoCommunication);
+            DtoEmployee dtoEmployee = employeeMapper.toDto(employee);
+            DtoCommunication dtoCommunication = communicationMapper.toDto(employee.getCommunication());
+
             dtoEmployee.setDepartment(new DtoDepartment(employee.getDepartment().getId(), employee.getDepartment().getName()));
             dtoEmployee.setCommunication(dtoCommunication);
             dtoEmployeeList.add(dtoEmployee);
@@ -59,22 +68,17 @@ public class EmployeeServiceImpl implements IEmployeeService {
         }
         Employee employee = optional.get();
 
-        DtoEmployee dtoEmployee = new DtoEmployee();
-        DtoCommunication dtoCommunication = new DtoCommunication();
-        DtoDepartment dtoDepartment = new DtoDepartment();
-
-        BeanUtils.copyProperties(employee, dtoEmployee);
+        DtoEmployee dtoEmployee = employeeMapper.toDto(employee);
 
         if (employee.getCommunication() != null) {
-            BeanUtils.copyProperties(employee.getCommunication(), dtoCommunication);
+            DtoCommunication dtoCommunication = communicationMapper.toDto(employee.getCommunication());
             dtoEmployee.setCommunication(dtoCommunication);
         }
 
         if (employee.getDepartment() != null) {
-            BeanUtils.copyProperties(employee.getDepartment(), dtoDepartment);
+            DtoDepartment dtoDepartment = departmentMapper.toDto(employee.getDepartment());
             dtoEmployee.setDepartment(dtoDepartment);
         }
-
         return dtoEmployee;
     }
 
@@ -82,7 +86,6 @@ public class EmployeeServiceImpl implements IEmployeeService {
     @Transactional
     public Boolean saveEmployee(DtoEmployeeIU dto) {
 
-        // 1) Department çek
         Department department = departmentRepository
                 .findById(dto.getDepartmentId())
                 .orElseThrow(() -> new RuntimeException("Department not found"));
@@ -91,13 +94,10 @@ public class EmployeeServiceImpl implements IEmployeeService {
                 .findById(dto.getCommunicationId())
                 .orElseThrow(() -> new RuntimeException("Communication not found"));
 
-
-        // 3) Username oluştur
         String username = generateUsername(dto.getFirstName(), dto.getLastName(), dto.getDateOfBirth());
 
-        // 4) Employee oluştur
-        Employee employee = new Employee();
-        BeanUtils.copyProperties(dto, employee);
+        Employee employee = employeeMapper.toEntity(dto);
+
         employee.setUsername(username);
         employee.setDepartment(department);
         employee.setCommunication(communication);

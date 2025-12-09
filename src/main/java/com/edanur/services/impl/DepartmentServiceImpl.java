@@ -6,7 +6,6 @@ import com.edanur.entity.Department;
 import com.edanur.mapper.DepartmentMapper;
 import com.edanur.repository.DepartmentRepository;
 import com.edanur.services.IDepartmentService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

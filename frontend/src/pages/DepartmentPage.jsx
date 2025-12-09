@@ -47,7 +47,7 @@ const DepartmentPage = () => {
             <div className="department-header">
                 <h2>Departman Listesi</h2>
                 <button className="add-btn" onClick={() => setShowModal(true)}>
-                    + Yeni Departman
+                    Yeni Departman
                 </button>
             </div>
 
