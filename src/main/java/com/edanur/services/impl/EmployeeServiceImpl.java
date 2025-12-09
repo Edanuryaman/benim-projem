@@ -11,6 +11,7 @@ import com.edanur.repository.CommunicationRepository;
 import com.edanur.repository.DepartmentRepository;
 import com.edanur.repository.EmployeeRepository;
 import com.edanur.services.IEmployeeService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -78,30 +79,37 @@ public class EmployeeServiceImpl implements IEmployeeService {
     }
 
     @Override
-    public DtoEmployee saveEmployee(DtoEmployeeIU dtoEmployeeIU) {
-        DtoEmployee dtoEmployee = new DtoEmployee();
-        Employee employee = new Employee();
+    @Transactional
+    public DtoEmployee saveEmployee(DtoEmployeeIU dto) {
 
+        // 1) Department çek
         Department department = departmentRepository
-                .findById(dtoEmployeeIU.getDepartmentId())
+                .findById(dto.getDepartmentId())
                 .orElseThrow(() -> new RuntimeException("Department not found"));
 
-        Communication communication = communicationRepository
-                .findById(dtoEmployeeIU.getCommunicationId())
-                .orElseThrow(() -> new RuntimeException("Communication not found"));
+        // 2) Communication oluştur
+        Communication communication = new Communication();
+        BeanUtils.copyProperties(dto.getCommunication(), communication);
+        Communication savedCommunication = communicationRepository.save(communication);
 
+        // 3) Username oluştur
+        String username = generateUsername(dto.getFirstName(), dto.getLastName(), dto.getDateOfBirth());
 
-        String username = generateUsername(dtoEmployeeIU.getFirstName(), dtoEmployeeIU.getLastName(), dtoEmployeeIU.getDateOfBirth());
-
-        BeanUtils.copyProperties(dtoEmployeeIU, employee);
+        // 4) Employee oluştur
+        Employee employee = new Employee();
+        BeanUtils.copyProperties(dto, employee);
         employee.setUsername(username);
         employee.setDepartment(department);
-        employee.setCommunication(communication);
+        employee.setCommunication(savedCommunication);
 
         Employee dbEmployee = employeeRepository.save(employee);
+
+        // 5) Return DTO
+        DtoEmployee dtoEmployee = new DtoEmployee();
         BeanUtils.copyProperties(dbEmployee, dtoEmployee);
         return dtoEmployee;
     }
+
 
     public String generateUsername(String firstName, String lastName, Date dateOfBirth) {
         String normalizedFirst = Normalizer.normalize(firstName, Normalizer.Form.NFD)
@@ -123,8 +131,8 @@ public class EmployeeServiceImpl implements IEmployeeService {
         String monthStr = String.format("%02d", month);
         String yearStr = String.format("%02d", year);
 
-        // Format: firstname.lastname.MMYY
-        return normalizedFirst + "." + normalizedLast + "." + monthStr + yearStr;
+        // Format: firstname.lastnameMMYY
+        return normalizedFirst + "." + normalizedLast + monthStr + yearStr;
     }
 
 }

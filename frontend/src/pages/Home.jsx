@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import Card from "../components/Card.jsx";// Card komponentini doğru import ettiğinden emin ol
+import Card from "../components/Card.jsx";
 import "./home.css";
+import { Link } from "react-router-dom";
 
 function Home() {
     const [employees, setEmployees] = useState([]);
@@ -21,7 +22,13 @@ function Home() {
 
     return (
         <>
-            <h1 className="team-title">GABİM ÇALIŞMA ARKADAŞLARIMIZ</h1>
+            <div className="title-area">
+                <h1 className="team-title">GABİM ÇALIŞMA ARKADAŞLARIMIZ</h1>
+
+                <Link to="/employee/add" className="add-button">
+                    Çalışan Ekle
+                </Link>
+            </div>
 
             {loading ? (
                 <p>Yükleniyor...</p>

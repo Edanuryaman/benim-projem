@@ -14,3 +14,23 @@
     text-transform: uppercase;   /* Büyük harf, modern görünüm */
     margin: 20px 0;              /* Üst-alt boşluk */
 }
+.title-area {
+    position: relative;
+    display: flex;
+    justify-content: center;   /* Başlığı ortalar */
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+/* Başlık tam ortada kalsın */
+.title-area .team-title {
+    margin: 0;
+    text-align: center;
+    width: 100%;
+}
+
+/* Buton sağda sabit dursun */
+.title-area .add-button {
+    position: absolute;
+    right: 0;
+}
