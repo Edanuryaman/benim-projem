@@ -1,6 +1,9 @@
 'use client';
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"
+import { Calendar } from "primereact/calendar";
+import { Dropdown } from "primereact/dropdown";
+
 import './employeeAdd.css';
 
 export default function EmployeeAdd() {
@@ -88,18 +91,23 @@ export default function EmployeeAdd() {
                 <div className="form-grid">
                     <div className="field full">
                         <label>Departman</label>
-                        <select
-                            name="departmentId"
-                            onChange={handleChange}
-                            required
+                        <Dropdown
+                            value={formData.departmentId}
+                            options={departments.map(dep => ({
+                                label: dep.name,
+                                value: dep.id
+                            }))}
+                            onChange={(e) =>
+                                setFormData({ ...formData, departmentId: e.value })
+                            }
+                            placeholder="-- Seçin --"
+                            className="w-full"
                             disabled={loadingDeps}
-                        >
-                            <option value="">-- Seçin --</option>
-                            {departments.map(dep => (
-                                <option key={dep.id} value={dep.id}>{dep.name}</option>
-                            ))}
-                        </select>
+                            required
+                            showClear
+                        />
                     </div>
+
 
                     <div className="field">
                         <label>Ad</label>
@@ -113,8 +121,18 @@ export default function EmployeeAdd() {
 
                     <div className="field">
                         <label>Doğum Tarihi</label>
-                        <input type="date" name="dateOfBirth" onChange={handleChange} required />
+                        <Calendar
+                            value={formData.dateOfBirth ? new Date(formData.dateOfBirth) : null}
+                            onChange={(e) =>
+                                setFormData({ ...formData, dateOfBirth: e.value.toISOString().split("T")[0] })
+                            }
+                            dateFormat="yy-mm-dd"
+                            showIcon
+                            placeholder="Tarih seçin"
+                            required
+                        />
                     </div>
+
 
                     <div className="field">
                         <label>Profil Fotoğrafı URL</label>
