@@ -40,7 +40,7 @@ export default function HomePage() {
                         <Card
                             key={emp.id}
                             id={emp.id}
-                            img={emp.profilePhoto || "/img/default.jpg"}
+                            img={emp.profilePhoto || "/img/resim1.jpg"}
                             title={`${emp.firstName} ${emp.lastName}`}
                             departmentName={emp.department?.name}
                             phone={emp.communication?.phone}
