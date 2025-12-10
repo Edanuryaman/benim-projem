@@ -1,0 +1,59 @@
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Başlık */
+.team-title {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: #4a4a4a;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+/* Başlık + buton alanı */
+.title-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;   /* Başlığı ortalar */
+    position: relative;
+    margin: 150px 0 40px 0;
+    padding-right: 90px;       /* Butona yer açar, daha ortaya gelir */
+}
+
+/* Add buton */
+.add-button {
+    position: absolute;
+    right: 50px;      /* Sağdan fazla yapışmasın */
+
+    padding: 10px 18px;
+    background: linear-gradient(45deg, #6B4F9B, #3FA28B);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+
+    transition: 0.25s ease;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+}
+
+/* Hover efekti */
+.add-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.18);
+    filter: brightness(1.12);
+}
+
+/* Tıklama anı */
+.add-button:active {
+    transform: scale(0.97);
+}

@@ -1,0 +1,95 @@
+/* --- Animasyonlu border --- */
+@keyframes softPulse {
+    0% {
+        border-image-source: linear-gradient(45deg, #b7a0d6, #8fd3c0, #f6c98c, #b7a0d6);
+    }
+    50% {
+        border-image-source: linear-gradient(45deg, #8fd3c0, #f6c98c, #b7a0d6, #8fd3c0);
+    }
+    100% {
+        border-image-source: linear-gradient(45deg, #b7a0d6, #8fd3c0, #f6c98c, #b7a0d6);
+    }
+}
+
+/* --- Ana kart --- */
+.card {
+    width: 300px;
+    min-height: 460px;
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
+    background: #fff;
+    border: 4px solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(45deg, #b7a0d6, #8fd3c0, #f6c98c, #b7a0d6);
+    animation: softPulse 2s infinite alternate;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* --- Fotoğraf --- */
+.card .card-img {
+    width: 90%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 8px;
+}
+.employee-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 4px;  /* ↓ önce 10-15 civarıydı, şimdi azaltıldı */
+}
+
+.department-badge {
+ /* alt boşluk aynı kalabilir */
+}
+
+/* --- Departman rozeti --- */
+.department-badge {
+    background: rgba(0, 0, 0, 0.09);
+    padding: 8px 8px;
+    border-radius: 10px;
+    margin: 10px auto;
+    margin-top: 4px;
+    margin-bottom: 20px;
+    width: fit-content;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #333;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(0, 0, 0, 0.45);
+}
+
+/* --- İletişim bilgileri --- */
+.contact-info {
+    text-align: center;
+
+}
+
+.contact-info p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+
+/* --- Buton --- */
+.card .card-desc button {
+    width: 120px;
+    padding: 10px;
+    background-color: #01335c;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+}
+
+.card .card-desc button:hover {
+    opacity: 0.85;
+}
+
