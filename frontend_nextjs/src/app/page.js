@@ -13,7 +13,9 @@ export default function HomePage() {
         fetch("http://localhost:8080/rest/api/employee/list")
             .then(res => res.json())
             .then(data => {
-                setEmployees(data);
+                const sorted = data.sort((a, b) => a.id - b.id);
+
+                setEmployees(sorted);
                 setLoading(false);
             })
             .catch(err => {
